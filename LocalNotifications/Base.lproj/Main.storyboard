@@ -20,6 +20,20 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="R4O-cx-AEz">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="P40-sc-CRY">
+                                        <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P40-sc-CRY" id="cHz-ps-UgA">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="tgs-Uc-GWH"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="xEt-r3-8rG"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -38,15 +52,18 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableView" destination="R4O-cx-AEz" id="leX-GS-RKF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="802" y="418"/>
         </scene>
-        <!--View Controller-->
+        <!--New Item View Controller-->
         <scene sceneID="iRn-tK-xer">
             <objects>
-                <viewController id="emN-JX-HJP" sceneMemberID="viewController">
+                <viewController id="emN-JX-HJP" customClass="NewItemViewController" customModule="LocalNotifications" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wF6-fb-NUH"/>
                         <viewControllerLayoutGuide type="bottom" id="tMH-bQ-V1m"/>
@@ -79,6 +96,9 @@
                                         <integer key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="reminderButtonPressed:" destination="emN-JX-HJP" eventType="touchUpInside" id="ncc-zm-X7g"/>
+                                </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="h75-x7-m7F">
                                 <rect key="frame" x="0.0" y="176" width="320" height="216"/>
@@ -88,6 +108,7 @@
                                         <date key="date" timeIntervalSinceReferenceDate="478537691.97555202">
                                             <!--2016-03-01 15:08:11 +0000-->
                                         </date>
+                                        <locale key="locale" localeIdentifier="ru"/>
                                     </datePicker>
                                 </subviews>
                                 <constraints>
@@ -106,6 +127,10 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="datePicker" destination="kxD-oF-Mrw" id="eNc-jY-kb2"/>
+                        <outlet property="textField" destination="dsV-Kf-0ws" id="eCg-Za-Gmb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uPR-Sd-6XV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
