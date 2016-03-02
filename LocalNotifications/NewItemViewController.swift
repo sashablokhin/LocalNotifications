@@ -16,8 +16,9 @@ class NewItemViewController: UIViewController, UITextFieldDelegate {
     @IBAction func reminderButtonPressed(sender: AnyObject) {
         let vc = navigationController!.viewControllers[0] as! ViewController
         
-        vc.items.append(textField.text!)
+        vc.items.addObject(textField.text!)
         vc.tableView.reloadData()
+        vc.saveItems()
         
         navigationController!.popViewControllerAnimated(true)
     }
