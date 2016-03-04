@@ -24,6 +24,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
     
+    func setupNotificationSettings() {
+        // Specify the notification types.
+        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Sound]
+        
+        var justInformAction = UIMutableUserNotificationAction()
+        justInformAction.identifier = "justInform"
+        justInformAction.title = "OK, got it"
+        justInformAction.activationMode = UIUserNotificationActivationMode.Background
+        justInformAction.destructive = false
+        justInformAction.authenticationRequired = false
+        
+        var modifyListAction = UIMutableUserNotificationAction()
+        modifyListAction.identifier = "editList"
+        modifyListAction.title = "Edit list"
+        modifyListAction.activationMode = UIUserNotificationActivationMode.Foreground
+        modifyListAction.destructive = false
+        modifyListAction.authenticationRequired = true
+        
+        var trashAction = UIMutableUserNotificationAction()
+        trashAction.identifier = "trashAction"
+        trashAction.title = "Delete list"
+        trashAction.activationMode = UIUserNotificationActivationMode.Background
+        trashAction.destructive = true
+        trashAction.authenticationRequired = true
+    }
+    
     func saveItems() {
         let pathsArray = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         let documentsDirectory = pathsArray[0] as NSString
