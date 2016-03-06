@@ -48,6 +48,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         trashAction.activationMode = UIUserNotificationActivationMode.Background
         trashAction.destructive = true
         trashAction.authenticationRequired = true
+        
+        let actionsArray = [justInformAction, modifyListAction, trashAction]
+        let actionsArrayMinimal = [trashAction, modifyListAction]
+        
+        // Specify the category related to the above actions.
+        var shoppingListReminderCategory = UIMutableUserNotificationCategory()
+        shoppingListReminderCategory.identifier = "shoppingListReminderCategory"
+        shoppingListReminderCategory.setActions(actionsArray, forContext: .Default)
+        shoppingListReminderCategory.setActions(actionsArrayMinimal, forContext: .Minimal)
     }
     
     func saveItems() {
