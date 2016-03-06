@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         loadItems()
+        setupNotificationSettings()
     }
     
 
@@ -25,38 +26,49 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func setupNotificationSettings() {
-        // Specify the notification types.
-        let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Sound]
+        let notificationSettings: UIUserNotificationSettings! = UIApplication.sharedApplication().currentUserNotificationSettings()
         
-        var justInformAction = UIMutableUserNotificationAction()
-        justInformAction.identifier = "justInform"
-        justInformAction.title = "OK, got it"
-        justInformAction.activationMode = UIUserNotificationActivationMode.Background
-        justInformAction.destructive = false
-        justInformAction.authenticationRequired = false
+        if (notificationSettings.types == UIUserNotificationType.None) {
+
+            // Specify the notification types.
+            let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Alert, UIUserNotificationType.Sound]
         
-        var modifyListAction = UIMutableUserNotificationAction()
-        modifyListAction.identifier = "editList"
-        modifyListAction.title = "Edit list"
-        modifyListAction.activationMode = UIUserNotificationActivationMode.Foreground
-        modifyListAction.destructive = false
-        modifyListAction.authenticationRequired = true
+            let justInformAction = UIMutableUserNotificationAction()
+            justInformAction.identifier = "justInform"
+            justInformAction.title = "OK, got it"
+            justInformAction.activationMode = UIUserNotificationActivationMode.Background
+            justInformAction.destructive = false
+            justInformAction.authenticationRequired = false
         
-        var trashAction = UIMutableUserNotificationAction()
-        trashAction.identifier = "trashAction"
-        trashAction.title = "Delete list"
-        trashAction.activationMode = UIUserNotificationActivationMode.Background
-        trashAction.destructive = true
-        trashAction.authenticationRequired = true
+            let modifyListAction = UIMutableUserNotificationAction()
+            modifyListAction.identifier = "editList"
+            modifyListAction.title = "Edit list"
+            modifyListAction.activationMode = UIUserNotificationActivationMode.Foreground
+            modifyListAction.destructive = false
+            modifyListAction.authenticationRequired = true
         
-        let actionsArray = [justInformAction, modifyListAction, trashAction]
-        let actionsArrayMinimal = [trashAction, modifyListAction]
+            let trashAction = UIMutableUserNotificationAction()
+            trashAction.identifier = "trashAction"
+            trashAction.title = "Delete list"
+            trashAction.activationMode = UIUserNotificationActivationMode.Background
+            trashAction.destructive = true
+            trashAction.authenticationRequired = true
         
-        // Specify the category related to the above actions.
-        var shoppingListReminderCategory = UIMutableUserNotificationCategory()
-        shoppingListReminderCategory.identifier = "shoppingListReminderCategory"
-        shoppingListReminderCategory.setActions(actionsArray, forContext: .Default)
-        shoppingListReminderCategory.setActions(actionsArrayMinimal, forContext: .Minimal)
+            let actionsArray = [justInformAction, modifyListAction, trashAction]
+            let actionsArrayMinimal = [trashAction, modifyListAction]
+        
+            // Specify the category related to the above actions.
+            let shoppingListReminderCategory = UIMutableUserNotificationCategory()
+            shoppingListReminderCategory.identifier = "shoppingListReminderCategory"
+            shoppingListReminderCategory.setActions(actionsArray, forContext: .Default)
+            shoppingListReminderCategory.setActions(actionsArrayMinimal, forContext: .Minimal)
+        
+            let categoriesForSettings: Set = [shoppingListReminderCategory]
+            let newNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: categoriesForSettings)
+        
+            UIApplication.sharedApplication().registerUserNotificationSettings(newNotificationSettings)
+
+        }
     }
     
     func saveItems() {
