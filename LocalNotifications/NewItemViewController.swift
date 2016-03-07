@@ -32,10 +32,21 @@ class NewItemViewController: UIViewController, UITextFieldDelegate {
         
         //UIApplication.sharedApplication().cancelAllLocalNotifications()
     }
+    
+
+    func fixNotificationDate(dateToFix: NSDate) -> NSDate {
+        let dateComponets: NSDateComponents = NSCalendar.currentCalendar().components([.Day, .Month, .Year, .Hour, .Minute], fromDate: dateToFix)
+        
+        dateComponets.second = 0
+        
+        let fixedDate: NSDate! = NSCalendar.currentCalendar().dateFromComponents(dateComponets)
+        
+        return fixedDate
+    }
 
     func scheduleLocalNotification() {
         let localNotification = UILocalNotification()
-        localNotification.fireDate = datePicker.date
+        localNotification.fireDate = fixNotificationDate(datePicker.date)
         localNotification.alertBody = "Hey, you must go shopping, remember?"
         localNotification.alertAction = "View List"
         localNotification.category = "shoppingListReminderCategory"
