@@ -20,6 +20,8 @@ class NewItemViewController: UIViewController, UITextFieldDelegate {
         vc.tableView.reloadData()
         vc.saveItems()
         
+        scheduleLocalNotification()
+        
         navigationController!.popViewControllerAnimated(true)
     }
     
@@ -27,8 +29,20 @@ class NewItemViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         textField.delegate = self
+        
+        //UIApplication.sharedApplication().cancelAllLocalNotifications()
     }
 
+    func scheduleLocalNotification() {
+        let localNotification = UILocalNotification()
+        localNotification.fireDate = datePicker.date
+        localNotification.alertBody = "Hey, you must go shopping, remember?"
+        localNotification.alertAction = "View List"
+        localNotification.category = "shoppingListReminderCategory"
+        
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
