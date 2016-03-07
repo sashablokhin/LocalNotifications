@@ -13,7 +13,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        print(notificationSettings.types.rawValue)
+    }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        // Do something serious in a real app.
+        print("Received Local Notification:")
+        print(notification.alertBody)
+    }
 
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+        
+        if identifier == "editList" {
+            NSNotificationCenter.defaultCenter().postNotificationName("modifyListNotification", object: nil)
+        }
+        else if identifier == "trashAction" {
+            NSNotificationCenter.defaultCenter().postNotificationName("deleteListNotification", object: nil)
+        }
+        
+        completionHandler()
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true

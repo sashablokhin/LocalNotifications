@@ -17,8 +17,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         loadItems()
         setupNotificationSettings()
+        
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDeleteListNotification", name: "deleteListNotification", object: nil)
     }
     
+    func handleDeleteListNotification() {
+        items.removeAllObjects()
+        saveItems()
+        tableView.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -67,7 +75,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let newNotificationSettings = UIUserNotificationSettings(forTypes: notificationTypes, categories: categoriesForSettings)
         
             UIApplication.sharedApplication().registerUserNotificationSettings(newNotificationSettings)
-
         }
     }
     

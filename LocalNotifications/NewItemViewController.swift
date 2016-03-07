@@ -31,8 +31,13 @@ class NewItemViewController: UIViewController, UITextFieldDelegate {
         textField.delegate = self
         
         //UIApplication.sharedApplication().cancelAllLocalNotifications()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleModifyListNotification", name: "modifyListNotification", object: nil)
     }
     
+    func handleModifyListNotification() {
+        textField.becomeFirstResponder()
+    }
 
     func fixNotificationDate(dateToFix: NSDate) -> NSDate {
         let dateComponets: NSDateComponents = NSCalendar.currentCalendar().components([.Day, .Month, .Year, .Hour, .Minute], fromDate: dateToFix)
